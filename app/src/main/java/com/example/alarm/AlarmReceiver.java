@@ -8,6 +8,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
+        context.startService(serviceIntent);
     }
 }
