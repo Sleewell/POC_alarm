@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Random;
 
 public class RingtonePlayingService extends Service {
 
@@ -30,6 +31,18 @@ public class RingtonePlayingService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         String state = intent.getExtras().getString("extra");
+        Integer musicChoice = intent.getExtras().getInt("music_choice");
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        Intent intentMainActivity = new Intent(this.getApplicationContext(), MainActivity.class);
+        PendingIntent pendingIntentMainActivity = PendingIntent.getActivity(this, 0, intentMainActivity, 0);
+        Notification notificationPopUp = new Notification.Builder(this)
+                .setContentTitle("An alarm is going off")
+                .setContentText("Click me")
+                .setSmallIcon(R.drawable.logo)
+                .setContentIntent(pendingIntentMainActivity)
+                .setAutoCancel(true)
+                .build();
 
         assert state != null;
         switch (state) {
@@ -43,11 +56,41 @@ public class RingtonePlayingService extends Service {
 
         if (!this.isRunning && start_id == 1) {
 
-            mediaPlayer = MediaPlayer.create(this, R.raw.mii_theme);
-            mediaPlayer.start();
-
             isRunning = true;
             start_id = 0;
+
+            assert musicChoice != null;
+            if (musicChoice == 0) {
+
+                int min = 1;
+                int max = 2;
+
+                Random random = new Random();
+                int musicNumber = random.nextInt(max + min);
+
+                if (musicNumber == 1) {
+
+                    mediaPlayer = MediaPlayer.create(this, R.raw.bad_guy);
+                    mediaPlayer.start();
+
+                } else {
+
+                    mediaPlayer = MediaPlayer.create(this, R.raw.mii_theme);
+                    mediaPlayer.start();
+
+                }
+
+            } else if (musicChoice == 1) {
+
+                mediaPlayer = MediaPlayer.create(this, R.raw.bad_guy);
+                mediaPlayer.start();
+
+            } else {
+
+                mediaPlayer = MediaPlayer.create(this, R.raw.mii_theme);
+                mediaPlayer.start();
+
+            }
 
         } else if (!this.isRunning && start_id == 0) {
 

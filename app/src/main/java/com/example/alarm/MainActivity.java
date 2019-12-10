@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     TextView updateText;
     Context context;
     PendingIntent pendingIntent;
+    int choose_music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 R.array.music_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         final Button alarm_on = findViewById(R.id.alarm_on);
         alarm_on.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 setAlarmText("Alarm set to " + hour_string + ":" + minute_string);
 
                 myIntent.putExtra("extra", "alarm on");
+
+                myIntent.putExtra("music_choice", choose_music);
 
                 pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
@@ -89,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     alarmManager.cancel(pendingIntent);
 
                 myIntent.putExtra("extra","alarm off");
+
+                myIntent.putExtra("music_choice", choose_music);
 
                 sendBroadcast(myIntent);
             }
@@ -123,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        
+        choose_music = (int)id;
     }
 
     @Override
