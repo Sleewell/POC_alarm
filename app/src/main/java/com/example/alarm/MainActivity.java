@@ -15,13 +15,16 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     AlarmManager alarmManager;
     TimePicker timePicker;
@@ -45,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
         final Intent myIntent = new Intent(context, AlarmReceiver.class);
 
+        Spinner spinner = findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.music_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         final Button alarm_on = findViewById(R.id.alarm_on);
         alarm_on.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
                 setAlarmText("Alarm set to " + hour_string + ":" + minute_string);
 
+                myIntent.putExtra("extra", "alarm on");
+
                 pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             }
+
         });
         
         Button alarm_off = findViewById(R.id.alarm_off);
@@ -70,7 +82,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setAlarmText("Alarm off");
 
-                alarmManager.cancel(pendingIntent);
+                boolean alarmUp = (PendingIntent.getBroadcast(context, 0,
+                        new Intent("com.my.package.MY_UNIQUE_ACTION"),
+                        PendingIntent.FLAG_NO_CREATE) != null);
+                if (alarmUp)
+                    alarmManager.cancel(pendingIntent);
+
+                myIntent.putExtra("extra","alarm off");
+
+                sendBroadcast(myIntent);
             }
         });
     }
@@ -99,5 +119,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
