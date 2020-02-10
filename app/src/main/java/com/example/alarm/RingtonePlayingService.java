@@ -7,12 +7,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Random;
 
 public class RingtonePlayingService extends Service {
@@ -117,7 +114,7 @@ public class RingtonePlayingService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();;
+        super.onDestroy();
         isRunning = false;
     }
 }

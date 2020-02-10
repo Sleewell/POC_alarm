@@ -3,16 +3,20 @@ package com.example.alarm;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String getYourString = intent.getExtras().getString("extra");
-        Integer getYourMusicChoice = intent.getExtras().getInt("music_choice");
-        Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
-        serviceIntent.putExtra("extra", getYourString);
-        serviceIntent.putExtra("music_choice", getYourMusicChoice);
-        context.startService(serviceIntent);
+        Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        if (alarmUri == null)
+        {
+            alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        }
+        Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
+        ringtone.play();
     }
 }
