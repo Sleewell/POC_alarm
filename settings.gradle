@@ -1,2 +1,2 @@
-include ':app', ':app'
-rootProject.name='Alarm'
+include ':app'
+rootProject.name='Prep Reveil'
