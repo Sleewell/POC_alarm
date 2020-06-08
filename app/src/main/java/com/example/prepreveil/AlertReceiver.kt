@@ -5,11 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.media.RingtoneManager
+import android.util.Log
 
 class AlertReceiver : BroadcastReceiver() {
 
     companion object {
         lateinit var mp: MediaPlayer
+        fun isMpInitialised() = ::mp.isInitialized
     }
 
     override fun onReceive(context: Context, intent: Intent) {

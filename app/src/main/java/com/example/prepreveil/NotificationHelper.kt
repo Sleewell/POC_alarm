@@ -28,6 +28,16 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
 
     val channelNotification: NotificationCompat.Builder
         get() {
+            val stopIntent = Intent(applicationContext, GlobalReceiver::class.java).apply {
+                action = "Stop"
+            }
+            val stopPendingIntent = PendingIntent.getBroadcast(applicationContext, 1, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+            val snoozeIntent = Intent(applicationContext, GlobalReceiver::class.java).apply {
+                action = "Snooze"
+            }
+            val snoozePendingIntent = PendingIntent.getBroadcast(applicationContext, 1, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
             val intent = Intent(this, MainActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
             return NotificationCompat.Builder(applicationContext, channelID)
@@ -36,6 +46,8 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
                     .setSmallIcon(R.drawable.logo_sleewell)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
+                    .addAction(R.drawable.logo_sleewell, "Stop", stopPendingIntent)
+                    .addAction(R.drawable.logo_sleewell, "Snooze", snoozePendingIntent)
         }
 
     companion object {

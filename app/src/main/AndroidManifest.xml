@@ -18,6 +18,7 @@
         </activity>
 
         <receiver android:name=".AlertReceiver" />
+        <receiver android:name=".GlobalReceiver" />
 
     </application>
 
