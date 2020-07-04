@@ -14,7 +14,7 @@
             android:id="@+id/toolbarReminder"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            app:navigationIcon="@drawable/baseline_close_white_24"
+            app:navigationIcon="@drawable/ic_close"
             app:title="@string/create_reminder">
 
         </android.support.v7.widget.Toolbar>

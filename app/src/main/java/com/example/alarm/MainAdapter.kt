@@ -1,4 +1,4 @@
-package com.raywenderlich.petmedicinereminder
+package com.example.alarm
 
 import android.support.v7.widget.RecyclerView
 import android.util.Log

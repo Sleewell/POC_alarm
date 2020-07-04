@@ -1,4 +1,4 @@
-package com.raywenderlich.petmedicinereminder
+package com.example.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadAllReminders(): List<Long> {
         val reminders = ArrayList<Long>(ReminderActivity.id.toInt() - 1)
-        val sharedPref = this.getSharedPreferences("com.raywenderlich.petmedicinereminder", Context.MODE_PRIVATE)
+        val sharedPref = this.getSharedPreferences("com.example.alarm", Context.MODE_PRIVATE)
         for (i in 1..ReminderActivity.id.toInt()) {
             val millis = sharedPref.getLong(i.toString(), 0)
             reminders.add(millis)

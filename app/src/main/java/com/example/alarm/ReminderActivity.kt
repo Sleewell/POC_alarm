@@ -1,4 +1,4 @@
-package com.raywenderlich.petmedicinereminder
+package com.example.alarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -83,7 +83,7 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener {
 
     fun saveAlarm(time: Long) {
 
-        val sharedPref = this.getSharedPreferences("com.raywenderlich.petmedicinereminder", Context.MODE_PRIVATE)
+        val sharedPref = this.getSharedPreferences("com.example.alarm", Context.MODE_PRIVATE)
         sharedPref.edit().putLong(id, time).apply()
         val newId = id.toInt() + 1
         id = newId.toString()

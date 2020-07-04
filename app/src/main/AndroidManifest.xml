@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.raywenderlich.petmedicinereminder">
+    package="com.example.alarm">
 
 
     <!-- Need to receive a broadcast when the system reboots -->

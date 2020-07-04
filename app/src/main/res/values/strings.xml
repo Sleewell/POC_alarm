@@ -43,13 +43,13 @@
     <string name="sample_data_deleted_big_text">The database records have been deleted for all the reminders.</string>
     <string name="group_notification_for">This is the %s notification group.</string>
     <string name="desc_required">Description is required.</string>
-    <string name="action_notify_administer_medication">com.raywenderlich.petmedecinereminder.action.ADMINISTER_MEDICATION</string>
+    <string name="action_notify_administer_medication">com.example.alarm.action.ADMINISTER_MEDICATION</string>
     <string name="created_reminder">Reminder created for %s.</string>
     <string name="deleted_reminder">Deleted reminder for %s.</string>
     <string name="updated_reminder">Updated reminder for %s.</string>
     <string name="cant_administer_medicine">Can\'t administer medicine at this time.</string>
     <string name="administer">Administer</string>
-    <string name="action_medicine_administered">com.raywenderlich.petmedicinereminder.action.MEDICINE_ADMINISTERED</string>
+    <string name="action_medicine_administered">com.example.alarm.action.MEDICINE_ADMINISTERED</string>
     <string-array name="days">
         <item>Sunday</item>
         <item>Monday</item>

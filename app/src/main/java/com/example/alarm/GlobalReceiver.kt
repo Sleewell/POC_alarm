@@ -1,4 +1,4 @@
-package com.raywenderlich.petmedicinereminder
+package com.example.alarm
 
 import android.content.BroadcastReceiver
 import android.content.Context
