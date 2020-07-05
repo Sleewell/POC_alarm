@@ -9,6 +9,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
+import com.example.alarm.view.AlarmActivity
 
 class NotificationHelper(base: Context?) : ContextWrapper(base) {
     private var mManager: NotificationManager? = null
@@ -38,7 +39,7 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
             }
             val snoozePendingIntent = PendingIntent.getBroadcast(applicationContext, 1, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, AlarmActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
             return NotificationCompat.Builder(applicationContext, channelID)
                     .setContentTitle("Sleewell")
