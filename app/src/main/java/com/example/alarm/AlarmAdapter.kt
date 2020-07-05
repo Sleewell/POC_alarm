@@ -1,7 +1,6 @@
 package com.example.alarm
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainAdapter(private val reminderList: List<Long>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class AlarmAdapter(private val reminderList: List<Long>) : RecyclerView.Adapter<AlarmAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textViewTimeToAdminister: TextView = itemView.findViewById(R.id.textViewTimeToAdminister)
