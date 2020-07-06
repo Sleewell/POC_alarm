@@ -19,7 +19,10 @@ import com.example.alarm.presenter.ReminderPresenter
 import kotlinx.android.synthetic.main.fragment_reminder_dialog.*
 import kotlin.math.min
 
-
+/**
+ * Reminder Activity
+ *
+ */
 class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContract.View {
 
     companion object {
@@ -30,6 +33,11 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContrac
 
     private lateinit var presenter: ReminderContract.Presenter
 
+    /**
+     * When view is created
+     *
+     * @param savedInstanceState Save of the instance state
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_reminder_dialog)
@@ -58,6 +66,13 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContrac
         }
     }
 
+    /**
+     * When time is set on Time Picker
+     *
+     * @param view The time picker
+     * @param hourOfDay Hours of the alarm
+     * @param minute Minutes of the alarm
+     */
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
 
         if (view.isShown) {
@@ -66,18 +81,37 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContrac
         }
     }
 
+    /**
+     * Show message in toast
+     *
+     * @param msg Message to display
+     */
     override fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
+    /**
+     * Set the presenter of the view
+     *
+     * @param presenter The presenter
+     */
     override fun setPresenter(presenter: ReminderContract.Presenter) {
         this.presenter = presenter
     }
 
+    /**
+     * Save the alarm
+     *
+     * @param time Time of the alarm
+     */
     fun saveAlarm(time: Long) {
         presenter.saveAlarm(time, this.getSharedPreferences("com.example.alarm", Context.MODE_PRIVATE))
     }
 
+    /**
+     * Change the current view
+     *
+     */
     private fun changeView() {
         val intent = Intent(this@ReminderActivity, AlarmActivity::class.java)
         startActivity(intent)

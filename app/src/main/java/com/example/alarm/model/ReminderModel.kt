@@ -10,12 +10,24 @@ import com.example.alarm.view.ReminderActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Reminder Model for the Reminder activity
+ *
+ */
 class ReminderModel : ReminderContract.Model {
 
     companion object {
         lateinit var c : Calendar
     }
 
+    /**
+     * Start the alarm
+     *
+     * @param alarmManager Alarm manager of phone
+     * @param intent Intent of the activity
+     * @param context Context of the activity
+     * @param sharedPreferences Shared preferences of the application
+     */
     override fun startAlarm(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences) {
         val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
         if (c.before(Calendar.getInstance())) {
@@ -25,12 +37,25 @@ class ReminderModel : ReminderContract.Model {
         saveAlarm(c.timeInMillis, sharedPreferences)
     }
 
+    /**
+     * Save the alarm
+     *
+     * @param time Time of the alarm
+     * @param sharedPreferences Shared preferences of the application
+     */
     override fun saveAlarm(time: Long, sharedPreferences: SharedPreferences) {
         sharedPreferences.edit().putLong(ReminderActivity.id, c.timeInMillis).apply()
         val newId = ReminderActivity.id.toInt() + 1
         ReminderActivity.id = newId.toString()
     }
 
+    /**
+     * Get time of the alarm
+     *
+     * @param hourOfDay Hour of the alarm
+     * @param minute Minutes of the alarm
+     * @return Time in a string
+     */
     override fun getTime(hourOfDay: Int, minute: Int) : String {
         c = Calendar.getInstance()
         c[Calendar.HOUR_OF_DAY] = hourOfDay
@@ -40,8 +65,7 @@ class ReminderModel : ReminderContract.Model {
         val date = Date(c.time.toString())
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         formatter.timeZone = TimeZone.getTimeZone("GMT+2")
-        val formatted: String = formatter.format(date)
 
-        return formatted
+        return formatter.format(date)
     }
 }

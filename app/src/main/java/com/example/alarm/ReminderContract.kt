@@ -7,12 +7,39 @@ import android.content.SharedPreferences
 import com.example.alarm.global.BasePresenter
 import com.example.alarm.global.BaseView
 
+/**
+ * Reminder contract for the Reminder Activity
+ *
+ */
 interface ReminderContract {
 
     interface Model {
 
+        /**
+         * Start the alarm
+         *
+         * @param alarmManager Alarm manager of phone
+         * @param intent Intent of the activity
+         * @param context Context of the activity
+         * @param sharedPreferences Shared preferences of the application
+         */
         fun startAlarm(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences)
+
+        /**
+         * Save the alarm
+         *
+         * @param time Time of the alarm
+         * @param sharedPreferences Shared preferences of the application
+         */
         fun saveAlarm(time: Long, sharedPreferences: SharedPreferences)
+
+        /**
+         * Get time of the time picker
+         *
+         * @param hourOfDay Hour of the alarm
+         * @param minute Minute of the alarm
+         * @return Time in a string
+         */
         fun getTime(hourOfDay: Int, minute: Int) : String
 
         interface OnFinishedListener {
@@ -22,13 +49,46 @@ interface ReminderContract {
     }
 
     interface Presenter : BasePresenter {
+        /**
+         * When view is created
+         *
+         */
         fun onViewCreated()
+
+        /**
+         * Get time of the alarm
+         *
+         * @param hourOfDay Hour of the alarm
+         * @param minute Minutes of the alarm
+         * @return Time in a string
+         */
         fun getTime(hourOfDay: Int, minute: Int): String
+
+        /**
+         * Start the alarm
+         *
+         * @param alarmManager Alarm manager of phone
+         * @param intent Intent of the activity
+         * @param context Context of the activity
+         * @param sharedPreferences Shared preferences of the application
+         */
         fun startAlarm(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences)
-        fun saveAlarm(time: Long, sharedPreferences: SharedPreferences)
+
+        fun saveAlarm(time: Long, sharedPreferences: SharedPreferences)/**
+         * Save the alarm
+         *
+         * @param time Time of the alarm
+         * @param sharedPreferences Shared preferences of the application
+         */
+
     }
 
     interface View : BaseView<Presenter> {
+        /**
+         * Show message in toast
+         *
+         * @param msg Message to display
+         */
         fun showToast(msg: String)
     }
 }

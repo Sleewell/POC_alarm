@@ -17,6 +17,10 @@ import com.example.alarm.presenter.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
+/**
+ * Alarm Activity
+ *
+ */
 class AlarmActivity : AppCompatActivity(), AlarmContract.View {
 
     companion object {
@@ -29,6 +33,11 @@ class AlarmActivity : AppCompatActivity(), AlarmContract.View {
 
     private lateinit var presenter: AlarmContract.Presenter
 
+    /**
+     * When view is created
+     *
+     * @param savedInstanceState Save of the instance state
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,14 +61,29 @@ class AlarmActivity : AppCompatActivity(), AlarmContract.View {
         presenter.onViewCreated(this.getSharedPreferences("com.example.alarm", Context.MODE_PRIVATE))
     }
 
+    /**
+     * Show message in toast
+     *
+     * @param msg Message to display
+     */
     override fun showToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
+    /**
+     * Set the presenter of the view
+     *
+     * @param presenter The presenter
+     */
     override fun setPresenter(presenter: AlarmContract.Presenter) {
         this.presenter = presenter
     }
 
+    /**
+     * Display all the reminders
+     *
+     * @param reminderList List of reminders
+     */
     override fun displayReminders(reminderList: ArrayList<Long>) {
         if (reminderList.isNotEmpty()) {
             recyclerView.visibility = View.VISIBLE
@@ -69,12 +93,20 @@ class AlarmActivity : AppCompatActivity(), AlarmContract.View {
         }
     }
 
+    /**
+     * Snooze the alarm
+     *
+     */
     override fun snoozeAlarm() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlertReceiver::class.java)
         presenter.snoozeAlarm(alarmManager, intent, this)
     }
 
+    /**
+     * Cancel the alarm
+     *
+     */
     override fun cancelAlarm() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlertReceiver::class.java)

@@ -11,8 +11,18 @@ import android.os.Build
 import android.support.v4.app.NotificationCompat
 import com.example.alarm.view.AlarmActivity
 
+/**
+ * Notification helper of the application
+ *
+ * @param base Context of the application
+ */
 class NotificationHelper(base: Context?) : ContextWrapper(base) {
     private var mManager: NotificationManager? = null
+
+    /**
+     * Create channel for the notification
+     *
+     */
     @TargetApi(Build.VERSION_CODES.O)
     private fun createChannel() {
         val channel = NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_HIGH)
