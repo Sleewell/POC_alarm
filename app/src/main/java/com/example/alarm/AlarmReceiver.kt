@@ -7,10 +7,10 @@ import android.media.MediaPlayer
 import android.media.RingtoneManager
 
 /**
- * Alarm Receiver
+ * Alert Receiver
  *
  */
-class AlarmReceiver : BroadcastReceiver() {
+class AlertReceiver : BroadcastReceiver() {
 
     companion object {
         lateinit var mp: MediaPlayer
