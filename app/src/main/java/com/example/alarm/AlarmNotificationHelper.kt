@@ -16,7 +16,7 @@ import com.example.alarm.view.AlarmActivity
  *
  * @param base Context of the application
  */
-class NotificationHelper(base: Context?) : ContextWrapper(base) {
+class AlarmNotificationHelper(base: Context?) : ContextWrapper(base) {
     private var mManager: NotificationManager? = null
 
     /**

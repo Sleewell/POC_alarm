@@ -69,6 +69,18 @@ class ReminderPresenter(view: ReminderContract.View) : ReminderContract.Presente
         model.saveAlarm(time, sharedPreferences)
     }
 
+    /**
+     * Start the alert
+     *
+     * @param alarmManager Alarm manager of phone
+     * @param intent Intent of the activity
+     * @param context Context of the activity
+     * @param sharedPreferences Shared preferences of the application
+     */
+    override fun startAlert(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences) {
+        model.startAlert(alarmManager, intent, context, sharedPreferences)
+    }
+
     override fun onFailure(t: Throwable) {
         if (t.message != null)
             view?.showToast(t.message!!)

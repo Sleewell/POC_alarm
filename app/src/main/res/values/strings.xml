@@ -7,4 +7,5 @@
     <string name="no_reminders">No Reminders</string>
     <string name="time">Time</string>
     <string name="time_required">Time is a required field</string>
+    <string name="launch_activity">Launch Activity</string>
 </resources>

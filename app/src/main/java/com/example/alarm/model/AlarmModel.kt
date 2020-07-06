@@ -7,7 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.text.format.DateUtils
 import android.text.format.Time
-import com.example.alarm.AlertReceiver
+import com.example.alarm.AlarmReceiver
 import com.example.alarm.AlarmContract
 import com.example.alarm.view.ReminderActivity
 import java.util.ArrayList
@@ -47,8 +47,8 @@ class AlarmModel : AlarmContract.Model {
     override fun cancelAlarm(alarmManager: AlarmManager, intent: Intent, context: Context) {
         val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
         alarmManager.cancel(pendingIntent)
-        if (AlertReceiver.isMpInitialised() && AlertReceiver.mp.isPlaying)
-            AlertReceiver.mp.stop()
+        if (AlarmReceiver.isMpInitialised() && AlarmReceiver.mp.isPlaying)
+            AlarmReceiver.mp.stop()
     }
 
     /**

@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.alarm.ReminderContract
 import com.example.alarm.view.ReminderActivity
 import java.text.SimpleDateFormat
@@ -18,6 +19,23 @@ class ReminderModel : ReminderContract.Model {
 
     companion object {
         lateinit var c : Calendar
+    }
+
+    /**
+     * Start the alert
+     *
+     * @param alarmManager Alarm manager of phone
+     * @param intent Intent of the activity
+     * @param context Context of the activity
+     * @param sharedPreferences Shared preferences of the application
+     */
+    override fun startAlert(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences) {
+        val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1)
+        }
+        c.add(Calendar.HOUR, -8)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
     }
 
     /**

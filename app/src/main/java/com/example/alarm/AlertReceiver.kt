@@ -7,10 +7,10 @@ import android.media.MediaPlayer
 import android.media.RingtoneManager
 
 /**
- * Alarm Receiver
+ * Alert Receiver
  *
  */
-class AlarmReceiver : BroadcastReceiver() {
+class AlertReceiver : BroadcastReceiver() {
 
     companion object {
         lateinit var mp: MediaPlayer
@@ -18,13 +18,13 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     /**
-     * When alart receiver receive a signal
+     * When alert receiver receive a signal
      *
      * @param context Context of the application
      * @param intent Intent of the application
      */
     override fun onReceive(context: Context, intent: Intent) {
-        val notificationHelper = NotificationHelper(context)
+        val notificationHelper = AlertNotificationHelper(context)
         val nb = notificationHelper.channelNotification
         notificationHelper.manager?.notify(1, nb.build())
         var alarmUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM)

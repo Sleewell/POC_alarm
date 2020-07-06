@@ -12,11 +12,11 @@ import android.support.v4.app.NotificationCompat
 import com.example.alarm.view.AlarmActivity
 
 /**
- * Notification helper of the application
+ * Alert notification helper of the application
  *
  * @param base Context of the application
  */
-class AlarmNotificationHelper(base: Context?) : ContextWrapper(base) {
+class AlertNotificationHelper(base: Context?) : ContextWrapper(base) {
     private var mManager: NotificationManager? = null
 
     /**
@@ -39,26 +39,14 @@ class AlarmNotificationHelper(base: Context?) : ContextWrapper(base) {
 
     val channelNotification: NotificationCompat.Builder
         get() {
-            val stopIntent = Intent(applicationContext, GlobalReceiver::class.java).apply {
-                action = "Stop"
-            }
-            val stopPendingIntent = PendingIntent.getBroadcast(applicationContext, 1, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            val snoozeIntent = Intent(applicationContext, GlobalReceiver::class.java).apply {
-                action = "Snooze"
-            }
-            val snoozePendingIntent = PendingIntent.getBroadcast(applicationContext, 1, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            val intent = Intent(this, AlarmActivity::class.java)
+            val intent = Intent(this, LaunchActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
             return NotificationCompat.Builder(applicationContext, channelID)
                     .setContentTitle("Sleewell")
-                    .setContentText("It's time to wake up !")
+                    .setContentText("It's time to sleep ! Alarm in 8 hours")
                     .setSmallIcon(R.drawable.logo_sleewell)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
-                    .addAction(R.drawable.logo_sleewell, "Stop", stopPendingIntent)
-                    .addAction(R.drawable.logo_sleewell, "Snooze", snoozePendingIntent)
         }
 
     companion object {

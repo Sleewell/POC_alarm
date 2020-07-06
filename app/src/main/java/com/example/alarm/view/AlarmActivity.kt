@@ -99,7 +99,7 @@ class AlarmActivity : AppCompatActivity(), AlarmContract.View {
      */
     override fun snoozeAlarm() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, AlertReceiver::class.java)
+        val intent = Intent(this, AlarmReceiver::class.java)
         presenter.snoozeAlarm(alarmManager, intent, this)
     }
 
@@ -109,7 +109,7 @@ class AlarmActivity : AppCompatActivity(), AlarmContract.View {
      */
     override fun cancelAlarm() {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, AlertReceiver::class.java)
+        val intent = Intent(this, AlarmReceiver::class.java)
         presenter.cancelAlarm(alarmManager, intent, this)
 
     }

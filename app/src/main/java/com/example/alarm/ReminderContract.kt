@@ -42,6 +42,16 @@ interface ReminderContract {
          */
         fun getTime(hourOfDay: Int, minute: Int) : String
 
+        /**
+         * Start the alert
+         *
+         * @param alarmManager Alarm manager of phone
+         * @param intent Intent of the activity
+         * @param context Context of the activity
+         * @param sharedPreferences Shared preferences of the application
+         */
+        fun startAlert(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences)
+
         interface OnFinishedListener {
             //fun onFinished(weather : ApiResult)
             fun onFailure(t : Throwable)
@@ -74,12 +84,23 @@ interface ReminderContract {
          */
         fun startAlarm(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences)
 
-        fun saveAlarm(time: Long, sharedPreferences: SharedPreferences)/**
+        /**
          * Save the alarm
          *
          * @param time Time of the alarm
          * @param sharedPreferences Shared preferences of the application
          */
+        fun saveAlarm(time: Long, sharedPreferences: SharedPreferences)
+
+        /**
+         * Start the alert
+         *
+         * @param alarmManager Alarm manager of phone
+         * @param intent Intent of the activity
+         * @param context Context of the activity
+         * @param sharedPreferences Shared preferences of the application
+         */
+        fun startAlert(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences)
 
     }
 

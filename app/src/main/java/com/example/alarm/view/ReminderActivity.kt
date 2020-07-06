@@ -1,7 +1,6 @@
 package com.example.alarm.view
 
 import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -9,15 +8,11 @@ import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.widget.*
-import java.text.SimpleDateFormat
-import java.util.*
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import com.example.alarm.*
-import com.example.alarm.presenter.AlarmPresenter
 import com.example.alarm.presenter.ReminderPresenter
 import kotlinx.android.synthetic.main.fragment_reminder_dialog.*
-import kotlin.math.min
 
 /**
  * Reminder Activity
@@ -55,8 +50,11 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContrac
         val buttonSaveReminder = findViewById<FloatingActionButton>(R.id.fabSaveReminder)
         buttonSaveReminder.setOnClickListener {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(this, AlertReceiver::class.java)
-            presenter.startAlarm(alarmManager, intent, this, this.getSharedPreferences("com.example.alarm", Context.MODE_PRIVATE))
+            val intentAlarm = Intent(this, AlarmReceiver::class.java)
+            presenter.startAlarm(alarmManager, intentAlarm, this, this.getSharedPreferences("com.example.alarm", Context.MODE_PRIVATE))
+            val intentAlert = Intent(this, AlertReceiver::class.java)
+            presenter.startAlert(alarmManager, intentAlert, this, getSharedPreferences("com.example.alarm", Context.MODE_PRIVATE))
+
             changeView()
         }
 
@@ -74,7 +72,6 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContrac
      * @param minute Minutes of the alarm
      */
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-
         if (view.isShown) {
             val formatted: String = presenter.getTime(hourOfDay, minute)
             buttonTime!!.text = formatted
