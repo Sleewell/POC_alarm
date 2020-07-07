@@ -27,14 +27,6 @@ class AlertReceiver : BroadcastReceiver() {
         val notificationHelper = AlertNotificationHelper(context)
         val nb = notificationHelper.channelNotification
         notificationHelper.manager?.notify(1, nb.build())
-        var alarmUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM)
-        if (alarmUri == null) {
-            alarmUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION)
-            if (alarmUri == null) alarmUri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE)
-        }
-        mp = MediaPlayer.create(context, alarmUri)
-        mp.isLooping = true
-        mp.start()
     }
 
 }

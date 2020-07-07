@@ -31,10 +31,10 @@ class ReminderModel : ReminderContract.Model {
      */
     override fun startAlert(alarmManager: AlarmManager, intent: Intent, context: Context, sharedPreferences: SharedPreferences) {
         val pendingIntent = PendingIntent.getBroadcast(context, 1, intent, 0)
+        c.add(Calendar.HOUR, -8)
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1)
         }
-        c.add(Calendar.HOUR, -8)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
     }
 
