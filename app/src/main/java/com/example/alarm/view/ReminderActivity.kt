@@ -1,6 +1,7 @@
 package com.example.alarm.view
 
 import android.app.AlarmManager
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -13,12 +14,13 @@ import android.content.Context
 import com.example.alarm.*
 import com.example.alarm.presenter.ReminderPresenter
 import kotlinx.android.synthetic.main.fragment_reminder_dialog.*
+import java.util.*
 
 /**
  * Reminder Activity
  *
  */
-class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContract.View {
+class ReminderActivity : AppCompatActivity(), ReminderContract.View {
 
     companion object {
         lateinit var instance: ReminderActivity
@@ -43,8 +45,15 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContrac
 
         val buttonTimePicker = findViewById<Button>(R.id.buttonTime)
         buttonTimePicker.setOnClickListener {
-            val timePicker: DialogFragment = TimePickerFragment()
-            timePicker.show(supportFragmentManager, "time picker")
+            val date = Calendar.getInstance()
+            val hour = date.get(Calendar.HOUR_OF_DAY)
+            val minute = date.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(  this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                val formatted: String = presenter.getTime(hourOfDay, minute)
+                buttonTime!!.text = formatted
+            }, hour, minute, true)
+            timePickerDialog.show()
         }
 
         val buttonSaveReminder = findViewById<FloatingActionButton>(R.id.fabSaveReminder)
@@ -61,20 +70,6 @@ class ReminderActivity : AppCompatActivity(), OnTimeSetListener, ReminderContrac
         val closeButton = findViewById<Toolbar>(R.id.toolbarReminder)
         closeButton.setNavigationOnClickListener {
             changeView()
-        }
-    }
-
-    /**
-     * When time is set on Time Picker
-     *
-     * @param view The time picker
-     * @param hourOfDay Hours of the alarm
-     * @param minute Minutes of the alarm
-     */
-    override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        if (view.isShown) {
-            val formatted: String = presenter.getTime(hourOfDay, minute)
-            buttonTime!!.text = formatted
         }
     }
 
